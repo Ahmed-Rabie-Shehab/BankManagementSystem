@@ -22,7 +22,7 @@ public class Account {
         return ownerName;
     }
 
-    public double getBalance() {
+    public  double getBalance() {
         return balance;
     }
 

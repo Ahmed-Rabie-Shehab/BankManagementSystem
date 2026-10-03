@@ -12,5 +12,10 @@ public class Main {
         System.out.println(a3.getAccountNumber() + " - " + a3.getOwnerName());
 
         System.out.println("Total accounts: " + Account.getAccountsCount());
+
+        a1.deposit(1000);
+        System.out.println(a1.getBalance());
+        System.out.println(a2.getBalance());
+        System.out.println(a3.getBalance());
     }
 }

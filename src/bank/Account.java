@@ -5,12 +5,13 @@ public class Account {
     private int accountNumber;
     private String ownerName;
     private double balance;
+    private static int accountsCount = 0;
 
-    public Account(int accountNumber, String ownerName, double balance) {
-        this.accountNumber = accountNumber;
+    public Account(String ownerName, double balance) {
+        accountsCount++;
+        this.accountNumber = accountsCount;
         this.ownerName = ownerName;
         this.balance = balance;
-
     }
 
     public int getAccountNumber() {
@@ -23,6 +24,10 @@ public class Account {
 
     public double getBalance() {
         return balance;
+    }
+
+    public static int getAccountsCount() {
+        return accountsCount;
     }
 
     public boolean deposit(double amount) {

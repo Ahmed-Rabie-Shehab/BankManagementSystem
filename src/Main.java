@@ -3,19 +3,14 @@ import bank.Account;
 public class Main {
 
     public static void main(String[] args) {
-        Account account = new Account(1001, "Ahmed", 5000);
-        System.out.println(account.getBalance());
+        Account a1 = new Account("Ahmed", 5000);
+        Account a2 = new Account("Mohamed", 10000);
+        Account a3 = new Account("Yossef", 15000);
 
-        boolean ok = account.withdraw(1000);
-        System.out.println(ok + " | " + account.getBalance());
+        System.out.println(a1.getAccountNumber() + " - " + a1.getOwnerName());
+        System.out.println(a2.getAccountNumber() + " - " + a2.getOwnerName());
+        System.out.println(a3.getAccountNumber() + " - " + a3.getOwnerName());
 
-        boolean negative = account.withdraw(-500);
-        System.out.println(negative + " | " + account.getBalance());
-
-        boolean tooMuch = account.withdraw(99999);
-        System.out.println(tooMuch + " | " + account.getBalance());
-
-        boolean zero = account.withdraw(0);
-        System.out.println(zero + " | " + account.getBalance());
+        System.out.println("Total accounts: " + Account.getAccountsCount());
     }
 }

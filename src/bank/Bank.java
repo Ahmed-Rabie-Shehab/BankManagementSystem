@@ -25,4 +25,13 @@ public class Bank {
         }
         return total;
     }
+
+    public Account findAccount(int accountNumber) {
+        for (int i = 0; i < size; i++) {
+            if (accounts[i].getAccountNumber() == accountNumber) {
+                return accounts[i];
+            }
+        }
+        return null;
+    }
 }

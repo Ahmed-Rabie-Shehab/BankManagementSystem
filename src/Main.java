@@ -1,6 +1,6 @@
 import bank.Account;
 import bank.Bank;
-
+import bank.SavingsAccount;
 public class Main {
 
     public static void main(String[] args) {
@@ -23,5 +23,10 @@ public class Main {
 
         Account missing = bank.findAccount(99);
         System.out.println(missing);
+
+        SavingsAccount s = new SavingsAccount("Kareem", 20000, 0.10);
+        System.out.println(s.getBalance());
+        s.addInterest();
+        System.out.println(s.getBalance());
     }
 }

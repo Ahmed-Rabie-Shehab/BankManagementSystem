@@ -17,4 +17,12 @@ public class Bank {
         size++;
         return true;
     }
+
+    public double totalBalance() {
+        double total = 0;
+        for (int i = 0; i < size; i++) {
+            total += accounts[i].getBalance();
+        }
+        return total;
+    }
 }

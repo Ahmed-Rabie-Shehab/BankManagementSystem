@@ -30,12 +30,11 @@ public abstract class Account {
         return accountsCount;
     }
 
-    public boolean deposit(double amount) {
+    public void deposit(double amount) {
         if (amount <= 0) {
-            return false;
+            throw new IllegalArgumentException("مبلغ الإيداع لازم يكون أكبر من صفر");
         }
         balance += amount;
-        return true;
     }
 
     public abstract void withdraw(double amount);

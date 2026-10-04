@@ -14,7 +14,7 @@ public class CurrentAccount extends Account {
             throw new IllegalArgumentException("المبلغ لازم يكون أكبر من صفر");
         }
         if (balance - amount < -overdraftLimit) {
-            throw new IllegalStateException("تعديت حد السحب على المكشوف: " + overdraftLimit);
+            throw new InsufficientFundsException("تعديت حد السحب على المكشوف: " + overdraftLimit);
         }
         balance -= amount;
     }

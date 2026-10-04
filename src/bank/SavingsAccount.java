@@ -21,7 +21,7 @@ public class SavingsAccount extends Account {
             throw new IllegalArgumentException("المبلغ لازم يكون أكبر من صفر");
         }
         if (amount > balance) {
-            throw new IllegalStateException("الرصيد غير كافٍ. الرصيد الحالي: " + balance);
+            throw new InsufficientFundsException("الرصيد غير كافٍ. الرصيد الحالي: " + balance);
         }
         balance -= amount;
     }

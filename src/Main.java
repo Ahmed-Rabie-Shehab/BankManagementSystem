@@ -2,14 +2,15 @@ import bank.Account;
 import bank.Bank;
 import bank.CurrentAccount;
 import bank.SavingsAccount;
+
 public class Main {
 
     public static void main(String[] args) {
         Bank bank = new Bank(5);
 
-        bank.addAccount(new Account("Ahmed", 5000));
-        bank.addAccount(new Account("Mohamed", 10000));
-        bank.addAccount(new Account("Yossef", 15000));
+        bank.addAccount(new SavingsAccount("Ahmed", 5000,0.10));
+        bank.addAccount(new SavingsAccount("Mohamed", 10000,0.10));
+        bank.addAccount(new SavingsAccount("Yossef", 15000,0.10));
 
         System.out.println(bank.totalBalance());
 
@@ -34,7 +35,7 @@ public class Main {
         System.out.println(c.withdraw(3000) + " | " + c.getBalance());
         System.out.println(c.withdraw(9000) + " | " + c.getBalance());
 
-        Account first = new Account("Ali", 1000);
+        Account first = new CurrentAccount("Ali", 1000,10000);
         Account second = new CurrentAccount("Sara", 1000, 5000);
 
         Bank b2 = new Bank(3);

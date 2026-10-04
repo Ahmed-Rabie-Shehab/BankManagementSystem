@@ -10,39 +10,33 @@ public class Main {
 
         SavingsAccount s1 = new SavingsAccount("Ahmed", 5000, 0.10);
         CurrentAccount c1 = new CurrentAccount("Sara", 1000, 5000);
-        SavingsAccount s2 = new SavingsAccount("Yossef", 15000, 0.05);
 
         bank.addAccount(s1);
         bank.addAccount(c1);
-        bank.addAccount(s2);
 
         bank.printAll();
-        System.out.println("Total: " + bank.totalBalance());
         System.out.println("---");
 
+        System.out.println("مجمد؟ " + c1.isFrozen());
+        c1.freeze();
+        System.out.println("مجمد؟ " + c1.isFrozen());
+
         try {
-            s1.withdraw(9000);
-            System.out.println("تم السحب من حساب Ahmed");
-        } catch (IllegalArgumentException e) {
-            System.out.println("مدخل غلط: " + e.getMessage());
+            c1.withdraw(100);
+            System.out.println("تم السحب");
+        } catch (IllegalStateException e) {
+            System.out.println("مرفوض: " + e.getMessage());
         } catch (InsufficientFundsException e) {
             System.out.println("رصيد غير كافٍ: " + e.getMessage());
         }
+        c1.unfreeze();
+
 
         try {
-            c1.withdraw(3000);
-            System.out.println("تم السحب من حساب Sara");
-        } catch (IllegalArgumentException e) {
-            System.out.println("مدخل غلط: " + e.getMessage());
-        } catch (InsufficientFundsException e) {
-            System.out.println("رصيد غير كافٍ: " + e.getMessage());
-        }
-
-        try {
-            s2.withdraw(-500);
-            System.out.println("تم السحب من حساب Yossef");
-        } catch (IllegalArgumentException e) {
-            System.out.println("مدخل غلط: " + e.getMessage());
+            c1.withdraw(100);
+            System.out.println("تم السحب بعد الفك");
+        } catch (IllegalStateException e) {
+            System.out.println("مرفوض: " + e.getMessage());
         } catch (InsufficientFundsException e) {
             System.out.println("رصيد غير كافٍ: " + e.getMessage());
         }

@@ -16,11 +16,24 @@ public class Main {
         bank.addAccount(c1);
         bank.addAccount(s2);
 
-        bank.printAll();
-        System.out.println("Total: " + bank.totalBalance());
+        try {
+            s1.withdraw(9000);
+            System.out.println("تم السحب من حساب Ahmed");
+        } catch (IllegalArgumentException e) {
+            System.out.println("مدخل غلط: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println("العملية مرفوضة: " + e.getMessage());
+        }
 
-        System.out.println(s1.withdraw(9000));
-        System.out.println(c1.withdraw(3000));
+        try {
+            c1.withdraw(3000);
+            System.out.println("تم السحب من حساب Sara");
+        } catch (IllegalArgumentException e) {
+            System.out.println("مدخل غلط: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println("العملية مرفوضة: " + e.getMessage());
+        }
+
 
         System.out.println("---");
         bank.printAll();

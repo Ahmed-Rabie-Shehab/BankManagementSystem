@@ -14,15 +14,15 @@ public class SavingsAccount extends Account {
         double interest = current * interestRate;
         deposit(interest);
     }
+
     @Override
-    public boolean withdraw(double amount) {
+    public void withdraw(double amount) {
         if (amount <= 0) {
-            return false;
+            throw new IllegalArgumentException("المبلغ لازم يكون أكبر من صفر");
         }
         if (amount > balance) {
-            return false;
+            throw new IllegalStateException("الرصيد غير كافٍ. الرصيد الحالي: " + balance);
         }
         balance -= amount;
-        return true;
     }
 }

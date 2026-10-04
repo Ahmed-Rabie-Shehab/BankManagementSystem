@@ -9,12 +9,13 @@ public class CurrentAccount extends Account {
     }
 
     @Override
-    public boolean withdraw(double amount) {
-        if (amount <= 0)
-            return false;
-        if (balance - amount < -overdraftLimit)
-            return false;
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("المبلغ لازم يكون أكبر من صفر");
+        }
+        if (balance - amount < -overdraftLimit) {
+            throw new IllegalStateException("تعديت حد السحب على المكشوف: " + overdraftLimit);
+        }
         balance -= amount;
-        return true;
     }
 }

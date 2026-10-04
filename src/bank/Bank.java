@@ -34,4 +34,13 @@ public class Bank {
         }
         return null;
     }
+    public void printAll() {
+        for (int i = 0; i < size; i++) {
+            System.out.println(
+                    accounts[i].getAccountNumber() + " | " +
+                            accounts[i].getOwnerName() + " | " +
+                            accounts[i].getBalance()
+            );
+        }
+    }
 }

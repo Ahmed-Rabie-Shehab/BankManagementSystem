@@ -8,41 +8,21 @@ public class Main {
     public static void main(String[] args) {
         Bank bank = new Bank(5);
 
-        bank.addAccount(new SavingsAccount("Ahmed", 5000,0.10));
-        bank.addAccount(new SavingsAccount("Mohamed", 10000,0.10));
-        bank.addAccount(new SavingsAccount("Yossef", 15000,0.10));
+        SavingsAccount s1 = new SavingsAccount("Ahmed", 5000, 0.10);
+        CurrentAccount c1 = new CurrentAccount("Sara", 1000, 5000);
+        SavingsAccount s2 = new SavingsAccount("Yossef", 15000, 0.05);
 
-        System.out.println(bank.totalBalance());
+        bank.addAccount(s1);
+        bank.addAccount(c1);
+        bank.addAccount(s2);
 
-        Account found = bank.findAccount(2);
-        if (found != null) {
-            System.out.println(found.getOwnerName() + " | " + found.getBalance());
-            found.deposit(5000);
-            System.out.println(bank.totalBalance());
-        } else {
-            System.out.println("Account not found");
-        }
+        bank.printAll();
+        System.out.println("Total: " + bank.totalBalance());
 
-        Account missing = bank.findAccount(99);
-        System.out.println(missing);
+        System.out.println(s1.withdraw(9000));
+        System.out.println(c1.withdraw(3000));
 
-        SavingsAccount s = new SavingsAccount("Kareem", 20000, 0.10);
-        System.out.println(s.getBalance());
-        s.addInterest();
-        System.out.println(s.getBalance());
-
-        CurrentAccount c = new CurrentAccount("Sara", 1000, 5000);
-        System.out.println(c.withdraw(3000) + " | " + c.getBalance());
-        System.out.println(c.withdraw(9000) + " | " + c.getBalance());
-
-        Account first = new CurrentAccount("Ali", 1000,10000);
-        Account second = new CurrentAccount("Sara", 1000, 5000);
-
-        Bank b2 = new Bank(3);
-        b2.addAccount(first);
-        b2.addAccount(second);
-
-        System.out.println(first.withdraw(3000));
-        System.out.println(second.withdraw(3000));
+        System.out.println("---");
+        bank.printAll();
     }
 }

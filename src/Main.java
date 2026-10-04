@@ -1,5 +1,6 @@
 import bank.Account;
 import bank.Bank;
+import bank.CurrentAccount;
 import bank.SavingsAccount;
 public class Main {
 
@@ -28,5 +29,19 @@ public class Main {
         System.out.println(s.getBalance());
         s.addInterest();
         System.out.println(s.getBalance());
+
+        CurrentAccount c = new CurrentAccount("Sara", 1000, 5000);
+        System.out.println(c.withdraw(3000) + " | " + c.getBalance());
+        System.out.println(c.withdraw(9000) + " | " + c.getBalance());
+
+        Account first = new Account("Ali", 1000);
+        Account second = new CurrentAccount("Sara", 1000, 5000);
+
+        Bank b2 = new Bank(3);
+        b2.addAccount(first);
+        b2.addAccount(second);
+
+        System.out.println(first.withdraw(3000));
+        System.out.println(second.withdraw(3000));
     }
 }

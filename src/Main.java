@@ -6,15 +6,17 @@ import bank.SavingsAccount;
 public class Main {
 
     public static void main(String[] args) {
-        Bank bank = new Bank(5);
+        Bank bank = new Bank();
 
         SavingsAccount s1 = new SavingsAccount("Ahmed", 5000, 0.10);
         CurrentAccount c1 = new CurrentAccount("Sara", 1000, 5000);
 
         bank.addAccount(s1);
         bank.addAccount(c1);
-
+        bank.removeAccount(1);
         bank.printAll();
+
+
         System.out.println("---");
 
         System.out.println("مجمد؟ " + c1.isFrozen());

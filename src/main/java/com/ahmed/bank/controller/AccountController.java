@@ -5,9 +5,10 @@ import com.ahmed.bank.service.AccountService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import com.ahmed.bank.dto.AmountRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @RestController
@@ -25,11 +26,16 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccount(@PathVariable int id) {
-        Account account = accountService.findAccount(id);
-        if (account == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(account);
+    public Account getAccount(@PathVariable int id) {
+        return accountService.findAccount(id);
+    }
+    @PostMapping("/{id}/deposit")
+    public Account deposit(@PathVariable int id, @RequestBody AmountRequest request) {
+        return accountService.deposit(id, request.amount());
+    }
+
+    @PostMapping("/{id}/withdraw")
+    public Account withdraw(@PathVariable int id, @RequestBody AmountRequest request) {
+        return accountService.withdraw(id, request.amount());
     }
 }

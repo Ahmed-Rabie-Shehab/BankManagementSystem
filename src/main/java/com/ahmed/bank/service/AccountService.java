@@ -5,6 +5,7 @@ import com.ahmed.bank.Bank;
 import com.ahmed.bank.CurrentAccount;
 import com.ahmed.bank.SavingsAccount;
 import org.springframework.stereotype.Service;
+import com.ahmed.bank.AccountNotFoundException;
 
 import java.util.List;
 
@@ -23,6 +24,25 @@ public class AccountService {
         return bank.getAllAccounts();
     }
     public Account findAccount(int accountNumber) {
-        return bank.findAccount(accountNumber);
+        return requireAccount(accountNumber);
+    }
+    public Account deposit(int accountNumber, double amount) {
+        Account account = requireAccount(accountNumber);
+        account.deposit(amount);
+        return account;
+    }
+
+    public Account withdraw(int accountNumber, double amount) {
+        Account account = requireAccount(accountNumber);
+        account.withdraw(amount);
+        return account;
+    }
+
+    private Account requireAccount(int accountNumber) {
+        Account account = bank.findAccount(accountNumber);
+        if (account == null) {
+            throw new AccountNotFoundException("مفيش حساب بالرقم " + accountNumber);
+        }
+        return account;
     }
 }

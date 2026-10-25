@@ -1,4 +1,4 @@
-package bank;
+package com.ahmed.bank;
 
 public class InsufficientFundsException extends RuntimeException {
 

@@ -1,5 +1,4 @@
-package bank;
-
+package com.ahmed.bank;
 import java.util.HashMap;
 
 public class Bank {

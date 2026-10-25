@@ -1,4 +1,4 @@
-package bank;
+package com.ahmed.bank;
 
 public interface Freezable {
     void freeze();

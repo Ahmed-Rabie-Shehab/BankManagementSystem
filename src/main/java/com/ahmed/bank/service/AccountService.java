@@ -22,4 +22,7 @@ public class AccountService {
     public List<Account> getAllAccounts() {
         return bank.getAllAccounts();
     }
+    public Account findAccount(int accountNumber) {
+        return bank.findAccount(accountNumber);
+    }
 }

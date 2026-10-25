@@ -10,6 +10,11 @@ import com.ahmed.bank.dto.AmountRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
+import com.ahmed.bank.Transaction;
+import com.ahmed.bank.dto.CreateAccountRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -37,5 +42,31 @@ public class AccountController {
     @PostMapping("/{id}/withdraw")
     public Account withdraw(@PathVariable int id, @RequestBody AmountRequest request) {
         return accountService.withdraw(id, request.amount());
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account createAccount(@RequestBody CreateAccountRequest request) {
+        return accountService.createAccount(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable int id) {
+        accountService.removeAccount(id);
+    }
+
+    @GetMapping("/{id}/transactions")
+    public List<Transaction> getTransactions(@PathVariable int id) {
+        return accountService.getTransactions(id);
+    }
+
+    @PostMapping("/{id}/freeze")
+    public Account freeze(@PathVariable int id) {
+        return accountService.setFrozen(id, true);
+    }
+
+    @PostMapping("/{id}/unfreeze")
+    public Account unfreeze(@PathVariable int id) {
+        return accountService.setFrozen(id, false);
     }
 }

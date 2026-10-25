@@ -1,11 +1,8 @@
 package com.ahmed.bank.service;
 
-import com.ahmed.bank.Account;
-import com.ahmed.bank.Bank;
-import com.ahmed.bank.CurrentAccount;
-import com.ahmed.bank.SavingsAccount;
+import com.ahmed.bank.*;
+import com.ahmed.bank.dto.CreateAccountRequest;
 import org.springframework.stereotype.Service;
-import com.ahmed.bank.AccountNotFoundException;
 
 import java.util.List;
 
@@ -42,6 +39,39 @@ public class AccountService {
         Account account = bank.findAccount(accountNumber);
         if (account == null) {
             throw new AccountNotFoundException("مفيش حساب بالرقم " + accountNumber);
+        }
+        return account;
+    }
+    public Account createAccount(CreateAccountRequest request) {
+        double interestRate = request.interestRate() == null ? 0 : request.interestRate();
+        double overdraftLimit = request.overdraftLimit() == null ? 0 : request.overdraftLimit();
+
+        Account account = switch (request.type()) {
+            case SAVINGS -> new SavingsAccount(request.ownerName(), request.initialBalance(), interestRate);
+            case CURRENT -> new CurrentAccount(request.ownerName(), request.initialBalance(), overdraftLimit);
+        };
+        bank.addAccount(account);
+        return account;
+    }
+
+    public void removeAccount(int accountNumber) {
+        requireAccount(accountNumber);
+        bank.removeAccount(accountNumber);
+    }
+
+    public List<Transaction> getTransactions(int accountNumber) {
+        return requireAccount(accountNumber).getTransactions();
+    }
+
+    public Account setFrozen(int accountNumber, boolean frozen) {
+        Account account = requireAccount(accountNumber);
+        if (!(account instanceof Freezable freezable)) {
+            throw new IllegalArgumentException("نوع الحساب ده مش قابل للتجميد");
+        }
+        if (frozen) {
+            freezable.freeze();
+        } else {
+            freezable.unfreeze();
         }
         return account;
     }

@@ -24,5 +24,6 @@ public class SavingsAccount extends Account {
             throw new InsufficientFundsException("الرصيد غير كافٍ. الرصيد الحالي: " + balance);
         }
         balance -= amount;
+        recordTransaction(TransactionType.WITHDRAWAL, amount);
     }
 }

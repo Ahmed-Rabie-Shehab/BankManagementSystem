@@ -21,6 +21,7 @@ public class CurrentAccount extends Account implements Freezable {
             throw new InsufficientFundsException("تعديت حد السحب على المكشوف: " + overdraftLimit);
         }
         balance -= amount;
+        recordTransaction(TransactionType.WITHDRAWAL, amount);
     }
 
     @Override

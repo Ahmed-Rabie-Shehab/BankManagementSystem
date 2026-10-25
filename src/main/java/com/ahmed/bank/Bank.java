@@ -1,5 +1,7 @@
 package com.ahmed.bank;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bank {
 
@@ -33,5 +35,8 @@ public class Bank {
                             account.getBalance()
             );
         }
+    }
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(accounts.values());
     }
 }

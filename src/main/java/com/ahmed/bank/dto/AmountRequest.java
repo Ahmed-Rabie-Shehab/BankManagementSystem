@@ -1,4 +1,9 @@
 package com.ahmed.bank.dto;
 
-public record AmountRequest(double amount) {
+import jakarta.validation.constraints.Positive;
+
+public record AmountRequest(
+        @Positive(message = "المبلغ لازم يكون أكبر من صفر")
+        double amount
+) {
 }

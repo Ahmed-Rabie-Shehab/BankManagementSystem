@@ -15,6 +15,7 @@ import com.ahmed.bank.dto.CreateAccountRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -35,17 +36,17 @@ public class AccountController {
         return accountService.findAccount(id);
     }
     @PostMapping("/{id}/deposit")
-    public Account deposit(@PathVariable Long id, @RequestBody AmountRequest request) {
+    public Account deposit(@PathVariable Long id,@Valid @RequestBody AmountRequest request) {
         return accountService.deposit(id, request.amount());
     }
 
     @PostMapping("/{id}/withdraw")
-    public Account withdraw(@PathVariable Long id, @RequestBody AmountRequest request) {
+    public Account withdraw(@PathVariable Long id,@Valid @RequestBody AmountRequest request) {
         return accountService.withdraw(id, request.amount());
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Account createAccount(@RequestBody CreateAccountRequest request) {
+    public Account createAccount(@Valid @RequestBody CreateAccountRequest request) {
         return accountService.createAccount(request);
     }
 

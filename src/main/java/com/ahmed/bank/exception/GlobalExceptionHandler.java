@@ -5,10 +5,11 @@ import com.ahmed.bank.InsufficientFundsException;
 import com.ahmed.bank.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -37,10 +38,12 @@ public class GlobalExceptionHandler {
     private ResponseEntity<ErrorResponse> build(HttpStatus status, String message) {
         return ResponseEntity.status(status).body(new ErrorResponse(status.value(), message));
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleUnreadable(HttpMessageNotReadableException e) {
         return build(HttpStatus.BAD_REQUEST, "الـ JSON المرسل مش مظبوط");
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException e) {
         String message = e.getBindingResult().getFieldErrors().stream()

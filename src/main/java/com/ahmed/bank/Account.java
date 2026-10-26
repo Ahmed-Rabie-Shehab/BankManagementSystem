@@ -1,25 +1,39 @@
 package com.ahmed.bank;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "accounts")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "account_type")
 public abstract class Account {
 
-    private int accountNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String ownerName;
+
+    @Column(nullable = false)
     protected double balance;
-    private static int accountsCount = 0;
-    private final List<Transaction> transactions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
+
+    protected Account() {
+    }
 
     public Account(String ownerName, double balance) {
-        accountsCount++;
-        this.accountNumber = accountsCount;
         this.ownerName = ownerName;
         this.balance = balance;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public Long getId() {
+        return id;
     }
 
     public String getOwnerName() {
@@ -30,16 +44,12 @@ public abstract class Account {
         return balance;
     }
 
-    public static int getAccountsCount() {
-        return accountsCount;
-    }
-
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
     protected void recordTransaction(TransactionType type, double amount) {
-        transactions.add(new Transaction(type, amount, balance));
+        transactions.add(new Transaction(this, type, amount, balance));
     }
 
     public void deposit(double amount) {

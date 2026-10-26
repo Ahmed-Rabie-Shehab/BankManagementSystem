@@ -31,16 +31,16 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
     @GetMapping("/{id}")
-    public Account getAccount(@PathVariable int id) {
+    public Account getAccount(@PathVariable Long id) {
         return accountService.findAccount(id);
     }
     @PostMapping("/{id}/deposit")
-    public Account deposit(@PathVariable int id, @RequestBody AmountRequest request) {
+    public Account deposit(@PathVariable Long id, @RequestBody AmountRequest request) {
         return accountService.deposit(id, request.amount());
     }
 
     @PostMapping("/{id}/withdraw")
-    public Account withdraw(@PathVariable int id, @RequestBody AmountRequest request) {
+    public Account withdraw(@PathVariable Long id, @RequestBody AmountRequest request) {
         return accountService.withdraw(id, request.amount());
     }
     @PostMapping
@@ -51,22 +51,22 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAccount(@PathVariable int id) {
+    public void deleteAccount(@PathVariable Long id) {
         accountService.removeAccount(id);
     }
 
     @GetMapping("/{id}/transactions")
-    public List<Transaction> getTransactions(@PathVariable int id) {
+    public List<Transaction> getTransactions(@PathVariable Long id) {
         return accountService.getTransactions(id);
     }
 
     @PostMapping("/{id}/freeze")
-    public Account freeze(@PathVariable int id) {
+    public Account freeze(@PathVariable Long id) {
         return accountService.setFrozen(id, true);
     }
 
     @PostMapping("/{id}/unfreeze")
-    public Account unfreeze(@PathVariable int id) {
+    public Account unfreeze(@PathVariable Long id) {
         return accountService.setFrozen(id, false);
     }
 }

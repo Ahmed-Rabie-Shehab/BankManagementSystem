@@ -1,12 +1,25 @@
 package com.ahmed.bank;
 
+import jakarta.persistence.*;
+
+@Entity
+@DiscriminatorValue("CURRENT")
 public class CurrentAccount extends Account implements Freezable {
-    private final double overdraftLimit;
+
+    private double overdraftLimit;
+
     private boolean frozen;
+
+    protected CurrentAccount() {
+    }
 
     public CurrentAccount(String ownerName, double balance, double overdraftLimit) {
         super(ownerName, balance);
         this.overdraftLimit = overdraftLimit;
+    }
+
+    public double getOverdraftLimit() {
+        return overdraftLimit;
     }
 
     @Override

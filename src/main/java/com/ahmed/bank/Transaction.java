@@ -1,19 +1,46 @@
 package com.ahmed.bank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "transactions")
 public class Transaction {
 
-    private final TransactionType type;
-    private final double amount;
-    private final LocalDateTime timestamp;
-    private final double balanceAfter;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Transaction(TransactionType type, double amount, double balanceAfter) {
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "account_id")
+    @JsonIgnore
+    private Account account;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType type;
+
+    private double amount;
+
+    private LocalDateTime timestamp;
+
+    private double balanceAfter;
+
+    protected Transaction() {
+    }
+
+    public Transaction(Account account, TransactionType type, double amount, double balanceAfter) {
+        this.account = account;
         this.type = type;
         this.amount = amount;
         this.balanceAfter = balanceAfter;
         this.timestamp = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public TransactionType getType() {

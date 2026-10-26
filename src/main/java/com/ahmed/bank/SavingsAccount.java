@@ -1,12 +1,23 @@
 package com.ahmed.bank;
 
+import jakarta.persistence.*;
+
+@Entity
+@DiscriminatorValue("SAVINGS")
 public class SavingsAccount extends Account {
 
-    private final double interestRate;
+    private double interestRate;
+
+    protected SavingsAccount() {
+    }
 
     public SavingsAccount(String ownerName, double balance, double interestRate) {
         super(ownerName, balance);
         this.interestRate = interestRate;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
     }
 
     public void addInterest() {
